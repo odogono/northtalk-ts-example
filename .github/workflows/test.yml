@@ -1,0 +1,38 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '@northtalk/ts version to test, such as 0.2.0'
+        required: false
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['24.10', 'latest']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - if: inputs.version
+        run: npm install --no-save @northtalk/ts@${{ inputs.version }}
+      - run: npm test
+      - run: npm run typecheck
+
+  bun:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - if: inputs.version
+        run: bun add @northtalk/ts@${{ inputs.version }}
+      - run: bun test

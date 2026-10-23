@@ -1,0 +1,13 @@
+-- counter.talk: counts hits per name in the visits Store.
+-- Grants: visits (a Store kept in the Host's SQLite database).
+
+on hit name
+  ask visits to increment name
+  return it
+end hit
+
+on count name
+  ask visits to get name
+  if it is nothing then return 0
+  return it
+end count
