@@ -1,0 +1,15 @@
+-- reminders.talk: remembers reminders and says each one when it is due.
+-- Grants: console (write).
+
+script variable pending = 0
+
+on remind note, delay
+  add 1 to pending
+  wait delay
+  say "Reminder: " & note
+  subtract 1 from pending
+end remind
+
+on status
+  return pending
+end status

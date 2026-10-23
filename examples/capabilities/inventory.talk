@@ -1,0 +1,14 @@
+-- inventory.talk: prices an order from the Host's catalogue, then reserves it
+-- with the Host's warehouse, which answers later.
+-- Grants: catalogue (price, immediate) and warehouse (reserve, suspending).
+
+on order sku, quantity
+  ask catalogue to price sku
+  put it * quantity into total
+  try
+    ask warehouse to reserve sku, quantity and wait
+    return {sku: sku, total: total, reservation: it}
+  catch {code: code}
+    return {sku: sku, total: total, failed: code}
+  end try
+end order

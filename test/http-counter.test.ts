@@ -3,7 +3,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { startServer } from '../src/server.ts';
+import { startServer } from '../examples/http-counter/server.ts';
 
 const call = async (url: string, method: string) => {
   const response = await fetch(url, { method });
