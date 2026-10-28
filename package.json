@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@northtalk/ts": "^0.2.0"
+    "@northtalk/ts": "^0.3.0"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
